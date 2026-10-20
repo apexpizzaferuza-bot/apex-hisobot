@@ -641,7 +641,7 @@ function renderLoad(){
   for(let hh=0;hh<24;hh++) html+=diff?`<div class="tot">${totHN(DR.map(d=>[d,hh]),0)}</div>`:tot(colTot(hh));
   html+=`<div class="tot tot-all" title="${all==null?'—':fmt(all,1)}">${diff?totHN(DR.flatMap(d=>HR.map(hh=>[d,hh]))):all==null?'':(ops||diff)?fv(all):fmt(all,0)}</div>`;
   { const box=document.getElementById('dayview'); box.hidden=!diff;
-    if(diff){ if(S.dv==null) S.dv=dayInfo[maxD].dow;
+    if(diff){ if(S.dv==null || !dcount[S.dv]) S.dv=ds.length?dayInfo[Math.max(...ds)].dow:dayInfo[maxD].dow;   // танланган кун шу даврда йўқ бўлса: даврнинг охирги куни
       const dd=S.dv, hrs=Array.from({length:24},(_,hh)=>hh).filter(hh=>cnt[dd][hh]);
       const W=1100,Hh=300,pl=34,pb=44,pt=22,bw=(W-pl-10)/Math.max(1,hrs.length), mx=Math.max(2,...hrs.map(hh=>Math.max(Math.round(have[dd][hh]),Math.round(need[dd][hh]))))+1;
       const y=v=>pt+(Hh-pt-pb)*(1-v/mx); let g='';
